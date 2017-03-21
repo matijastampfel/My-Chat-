@@ -82,7 +82,7 @@ function userSave(result) {
         } else {
             alert("Hi" + user.displayName);
         }
-
+console.log(data);
 localStorage.setItem("logInUser",data.displayName);
 
     });
