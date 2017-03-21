@@ -39,7 +39,7 @@ var provider = new firebase.auth.GithubAuthProvider();
 
 firebase.auth().signInWithPopup(provider).then(function(result) {
 console.log(result);
-//call function here for users
+userSave(result);
 }).catch(function(error) {
 console.log(error);
 });
