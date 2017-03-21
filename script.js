@@ -64,7 +64,7 @@ function userSave(result) {
         name: user.displayName
     };
 
-    firebase.database.ref("users/" + user.uid).set(userObj);
+    firebase.database().ref("users/" + user.uid).set(userObj);
 
 
     firebase.database().ref('users/' + user.uid).once('value', function (snapshot) {
