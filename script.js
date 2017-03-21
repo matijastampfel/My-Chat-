@@ -1,4 +1,3 @@
-var txtName = document.getElementById("name");
 var txtMessage = document.getElementById("message");
 var buttonS = document.getElementById("sendB");
 var chatUl = document.getElementById("chatUL");
@@ -6,7 +5,7 @@ var logB = document.getElementById("loginB");
 
 buttonS.addEventListener("click", function () {
 
-    var name = txtName.value;
+    var name = localStorage.getItem("logInUser");
     var message = txtMessage.value;
 
     firebase.database().ref("chat/").push({
@@ -84,6 +83,7 @@ function userSave(result) {
             alert("Hi" + user.displayName);
         }
 
+localStorage.setItem("logInUser",data.displayName);
 
     });
 
