@@ -4,45 +4,45 @@ var buttonS = document.getElementById("sendB");
 var chatUl = document.getElementById("chatUL");
 var logB = document.getElementById("loginB");
 
-buttonS.addEventListener("click",function(){
+buttonS.addEventListener("click", function () {
 
     var name = txtName.value;
     var message = txtMessage.value;
-  
+
     firebase.database().ref("chat/").push({
-        name: name, 
+        name: name,
         message: message
     });
 });
 
 firebase.database().ref("chat/")
-.on("value", function(snapshot) {
+    .on("value", function (snapshot) {
 
-var html = "";
+        var html = "";
 
-snapshot.forEach(function(i){
-var element = i.val();
-var name = element.name;
-var message = element.message;
-html += "<li><b>"+name+": </b>"+message+"</li>";
+        snapshot.forEach(function (i) {
+            var element = i.val();
+            var name = element.name;
+            var message = element.message;
+            html += "<li><b>" + name + ": </b>" + message + "</li>";
+
+        });
+
+        chatUl.innerHTML = html;
 
     });
 
-    chatUl.innerHTML = html;
-
-});
-
 // Log in git //////////////////////////////////////////////////////////////
 
-function gitLog(){
-var provider = new firebase.auth.GithubAuthProvider();
+function gitLog() {
+    var provider = new firebase.auth.GithubAuthProvider();
 
-firebase.auth().signInWithPopup(provider).then(function(result) {
-console.log(result);
-userSave(result);
-}).catch(function(error) {
-console.log(error);
-});
+    firebase.auth().signInWithPopup(provider).then(function (result) {
+        console.log(result);
+        userSave(result);
+    }).catch(function (error) {
+        console.log(error);
+    });
 }
 
 
@@ -56,30 +56,36 @@ logB.addEventListener("click", gitLog);
 
 //Save user data //////////////////////////////////////////////////////////
 
-function userSave(result){
+function userSave(result) {
 
-var user = result.user.providerData[0];
-var userObj = {id: user.uid, name: user.displayName};
+    var user = result.user.providerData[0];
+    var userObj = {
+        id: user.uid,
+        name: user.displayName
+    };
 
-firebase.database.ref("users/"+user.uid).set(userObj); 
-
-
-return firebase.database().ref('users/' + user.uid).once('value',function(snapshot) {
-  var data = snapshot.val();
-
-var user = result.user.providerData[0];
-
-if (data === null) {
-
-var userObj = {id: user.uid, name: user.displayName};
-
-firebase.database.ref("users/"+user.uid).set(userObj); 
-} else {
-    alert("Hi" + user.displayName);
-}
+    firebase.database.ref("users/" + user.uid).set(userObj);
 
 
-});
+    firebase.database().ref('users/' + user.uid).once('value', function (snapshot) {
+        var data = snapshot.val();
+
+        var user = result.user.providerData[0];
+
+        if (data === null) {
+
+            var userObj = {
+                id: user.uid,
+                name: user.displayName
+            };
+
+            firebase.database.ref("users/" + user.uid).set(userObj);
+        } else {
+            alert("Hi" + user.displayName);
+        }
+
+
+    });
 
 
 
