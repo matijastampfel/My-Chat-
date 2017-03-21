@@ -9,13 +9,13 @@ buttonS.addEventListener("click",function(){
     var name = txtName.value;
     var message = txtMessage.value;
   
-    firebase.database().ref("chat").push({
+    firebase.database().ref("chat/").push({
         name: name, 
         message: message
     });
 });
 
-firebase.database().ref("chat")
+firebase.database().ref("chat/")
 .on("value", function(snapshot) {
 
 var html = "";
@@ -39,6 +39,7 @@ var provider = new firebase.auth.GithubAuthProvider();
 
 firebase.auth().signInWithPopup(provider).then(function(result) {
 console.log(result);
+//call function here for users
 }).catch(function(error) {
 console.log(error);
 });
@@ -52,3 +53,39 @@ console.log(error);
 logB.addEventListener("click", gitLog);
 
 //******************************************************************** */
+
+//Save user data //////////////////////////////////////////////////////////
+
+function userSave(result){
+
+var user = result.user.providerData[0];
+var userObj = {id: user.uid, name: user.displayName};
+
+firebase.database.ref("users/"+user.uid).set(userObj); 
+
+
+return firebase.database().ref('users/' + user.uid).once('value',function(snapshot) {
+  var data = snapshot.val();
+
+var user = result.user.providerData[0];
+
+if (data === null) {
+
+var userObj = {id: user.uid, name: user.displayName};
+
+firebase.database.ref("users/"+user.uid).set(userObj); 
+} else {
+    alert("Hi" + user.displayName);
+}
+
+
+});
+
+
+
+
+
+}
+
+
+//*********************************************************************** */
