@@ -80,10 +80,10 @@ function userSave(result) {
 
             firebase.database.ref("users/" + user.uid).set(userObj);
         } else {
-            alert("Hi" + user.displayName);
+            alert("Hi " + user.displayName);
         }
 console.log(data);
-localStorage.setItem("logInUser",data.displayName);
+localStorage.setItem("logInUser",user.displayName);
 
     });
 
