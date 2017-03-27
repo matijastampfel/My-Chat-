@@ -1,4 +1,15 @@
 h1 {
-    font-family: 'Source Code Pro', monospace;
+    font-family: 'Source Code Pro', monospace !important;
+    text-decoration:white;
 }
 
+body{
+    position: center;
+    font-family: 'Source Code Pro', monospace;
+    background-image: url("http://orig11.deviantart.net/c65c/f/2014/060/6/7/illusion_chat_background_outer_by_mikedarko-d78fafd.png");
+    color: white !important;
+}
+
+#loginB {
+    margin-bottom: 25px;
+}
