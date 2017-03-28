@@ -107,7 +107,7 @@ localStorage.setItem("logInUser",JSON.stringify(obj));
 
 function specialB (){
     var user = JSON.parse(localStorage.getItem("logInUser"));
-    var secretbutton = getElementById("secret");
+    var secretbutton = document.getElementById("secret");
     if(user.ID == 21656636) {
         secretbutton.style.display = "block";
     }
