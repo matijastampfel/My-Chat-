@@ -6,11 +6,11 @@ specialB ();
 
 buttonS.addEventListener("click", function () {
 
-    var name = localStorage.getItem("logInUser");
+    var user = JSON.parse(localStorage.getItem("logInUser"));
     var message = txtMessage.value;
 
     firebase.database().ref("chat/").push({
-        name: name,
+        name: user.name,
         message: message
     });
 });
