@@ -78,12 +78,18 @@ function userSave(result) {
                 name: user.displayName
             };
 
-            firebase.database.ref("users/" + user.uid).set(userObj);
+            firebase.database().ref("users/" + user.uid).set(userObj);
         } else {
             alert("Hi " + user.displayName);
         }
 console.log(data);
-localStorage.setItem("logInUser",user.displayName);
+
+let obj = {
+    name: user.displayName,
+    ID: user.uid
+}
+
+localStorage.setItem("logInUser",JSON.stringify(obj));
 
     });
 
@@ -95,3 +101,15 @@ localStorage.setItem("logInUser",user.displayName);
 
 
 //*********************************************************************** */
+
+// Hidden ///////////////////////////////////////////////////////////
+
+function specialB (){
+    var user = JSON.parse(localStorage.getItem("logInUser"));
+    var secretbutton = getElementById("secret");
+    if(user.ID == 21656636) {
+        secretbutton.style.display = "block";
+    }
+}
+
+// ********************************************************************//
