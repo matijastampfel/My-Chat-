@@ -2,6 +2,7 @@ var txtMessage = document.getElementById("message");
 var buttonS = document.getElementById("sendB");
 var chatUl = document.getElementById("chatUL");
 var logB = document.getElementById("loginB");
+specialB ();
 
 buttonS.addEventListener("click", function () {
 
@@ -90,7 +91,7 @@ let obj = {
 }
 
 localStorage.setItem("logInUser",JSON.stringify(obj));
-
+    specialB ()
     });
 
 
