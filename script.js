@@ -2,17 +2,21 @@ var txtMessage = document.getElementById("message");
 var buttonS = document.getElementById("sendB");
 var chatUl = document.getElementById("chatUL");
 var logB = document.getElementById("loginB");
-specialB ();
+
 
 buttonS.addEventListener("click", function () {
 
     var user = JSON.parse(localStorage.getItem("logInUser"));
     var message = txtMessage.value;
 
+if (user !== null) {
     firebase.database().ref("chat/").push({
         name: user.name,
         message: message
     });
+    } else {
+        alert("You did not login, now assassins are after you :D");
+    }
 });
 
 firebase.database().ref("chat/")
@@ -39,7 +43,21 @@ function gitLog() {
 
     firebase.auth().signInWithPopup(provider).then(function (result) {
         console.log(result);
-        userSave(result);
+        if(loginB.textContent === "Log in Button"){
+            userSave(result);
+            specialB ();
+            loginB.textContent = "Logout in Button";
+        }else if(loginB.textContent === "Logout in Button"){
+            firebase.auth().signOut().then(()=>{
+                loginB.textContent = "Log in Button";
+                localStorage.clear();
+            }) 
+            .catch(function(error) {
+                console.log(error);
+            });
+            
+        }
+
     }).catch(function (error) {
         console.log(error);
     });
@@ -51,6 +69,8 @@ function gitLog() {
 //Login Button listener ////////////////////////////////////////////////
 
 logB.addEventListener("click", gitLog);
+
+
 
 //******************************************************************** */
 
@@ -92,7 +112,8 @@ let obj = {
 
 localStorage.setItem("logInUser",JSON.stringify(obj));
     specialB ()
-    });
+});
+
 
 
 
@@ -102,6 +123,7 @@ localStorage.setItem("logInUser",JSON.stringify(obj));
 
 
 //*********************************************************************** */
+
 
 // Hidden ///////////////////////////////////////////////////////////
 
